@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_screen">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="280sp"
+        android:layout_height="45sp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="150dp"
+        android:background="@drawable/custom_input"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="10sp"
+        android:editable="true"
+        android:gravity="center_vertical"
+        android:hint="@string/hint_user"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="280sp"
+        android:layout_height="45sp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="150dp"
+        android:background="@drawable/custom_input"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        android:drawablePadding="10sp"
+        android:editable="true"
+        android:gravity="center_vertical"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:password="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="158dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/btnLogin_Text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <Button
+        android:id="@+id/btnRequestUnlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="159dp"
+        android:text="@string/btnRequestUnlock"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

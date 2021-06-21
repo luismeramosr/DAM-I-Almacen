@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Almacen</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_inbound">Ingreso</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="btnLogin_Text">Ingresar</string>
+    <string name="btnRequestUnlock">Solicitar desbloqueo</string>
+</resources>
