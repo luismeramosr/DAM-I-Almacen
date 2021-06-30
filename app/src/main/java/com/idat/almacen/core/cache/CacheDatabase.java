@@ -10,7 +10,7 @@ import com.idat.almacen.core.app.Almacen;
 import com.idat.almacen.core.cache.models.UserCache;
 import com.idat.almacen.core.cache.repositories.UserCacheDao;
 
-@Database(entities = {UserCache.class}, version = 2)
+@Database(entities = {UserCache.class}, version = 3)
 public abstract class CacheDatabase extends RoomDatabase {
     private static final String DB_NAME = "CacheDB";
 

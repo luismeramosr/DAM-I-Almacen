@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.idat.almacen.activities.LoginActivity;
+import com.idat.almacen.core.cache.services.UserCacheService;
 import com.idat.almacen.databinding.FragmentLogoutBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,7 @@ public class LogoutFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLogoutBinding.inflate(getLayoutInflater());
         AppCompatActivity mainActivity = (AppCompatActivity) getActivity();
+        UserCacheService.getInstance().deleteCache();
         mainActivity.getSupportActionBar().hide();
         binding.animationLogout.postOnAnimationDelayed(() -> {
             Intent intent = new Intent(mainActivity, LoginActivity.class);

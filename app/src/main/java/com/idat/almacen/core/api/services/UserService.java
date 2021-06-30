@@ -29,4 +29,9 @@ public class UserService {
     public Flowable<ResWrapper<List<User>>> getAllUsers() {
         return repository.getAllUsers().subscribeOn(Schedulers.io());
     }
+
+    public Flowable<ResWrapper<User>> updateUser(User user) {
+        return repository.updateUser(user).subscribeOn(Schedulers.io());
+    }
+
 }

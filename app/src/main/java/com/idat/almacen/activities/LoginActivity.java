@@ -50,11 +50,11 @@ public class LoginActivity extends AppCompatActivity {
                               cacheService.cacheData(UserCache.ofLoginResponse(response));
                               goToMainActivity();
                           } else {
-                              Helpers.showToast(this, response.getErrorMessage(), Toast.LENGTH_SHORT);
+                              Helpers.getInstance().showToast(this, response.getErrorMessage(), Toast.LENGTH_SHORT);
                           }
                       }, (err) -> {
                           if (err.getCause() != null)  {
-                              Helpers.showToast(this,"El servidor no responde o no tiene conexión a internet!",
+                              Helpers.getInstance().showToast(this,"El servidor no responde o no tiene conexión a internet!",
                                       Toast.LENGTH_SHORT);
                           }
                           err.printStackTrace();
@@ -65,12 +65,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateRequestData(String username, String password) {
         if (username.length() > 20 || username.equals("")) {
-            Helpers.showToast(this, "Debe ingresar un usuario válido!", Toast.LENGTH_SHORT);
+            Helpers.getInstance().showToast(this, "Debe ingresar un usuario válido!", Toast.LENGTH_SHORT);
             return false;
         }
 
         if (password.length() > 64 || password.equals("")) {
-            Helpers.showToast(this, "Debe ingresar una contraseña válida!", Toast.LENGTH_SHORT);
+            Helpers.getInstance().showToast(this, "Debe ingresar una contraseña válida!", Toast.LENGTH_SHORT);
             return false;
         }
 

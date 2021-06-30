@@ -13,17 +13,15 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.navigation.NavigationView;
 import com.idat.almacen.R;
-import com.idat.almacen.core.constants.Menus;
+import com.idat.almacen.core.constants.NavigationConfig;
 import com.idat.almacen.core.cache.models.UserCache;
 import com.idat.almacen.core.cache.services.UserCacheService;
 import com.idat.almacen.core.constants.TopLevelDestinations;
 import com.idat.almacen.core.util.Helpers;
 import com.idat.almacen.databinding.ActivityMainBinding;
 
-import java.util.List;
-
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import lombok.Getter;
 
 
@@ -32,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private UserCacheService service;
+    @Getter
+    private NavController navigationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         service = UserCacheService.getInstance();
         DrawerLayout drawer = binding.drawerLayout;
-
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
-        setUpMenu();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 TopLevelDestinations.getInstance().getDestinations())
@@ -51,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        navigationController = navController;
+        setUpMenu();
     }
 
     @Override
@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private void setUpMenu() {
         service.getCachedData()
                 .subscribe(data -> {
-                    int idMenu = Menus.getInstance().get(data.getRole());
+                    int idMenu = NavigationConfig.getInstance().getMenu(data.getRole());
+                    int idNavGraph = NavigationConfig.getInstance().getNavGraph(data.getRole());
                     binding.navView.inflateMenu(idMenu);
                     loadUserData(data);
                 }, err -> {
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         username.setText(user);
         email.setText(cachedData.getEmail());
         role.setText(cachedData.getRole());
-        Helpers.showToast(this,
+        Helpers.getInstance().showToast(this,
                 String.format("Bienvenido %s", user), Toast.LENGTH_SHORT);
     }
 

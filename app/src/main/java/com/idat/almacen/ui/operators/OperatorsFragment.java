@@ -31,28 +31,23 @@ public class OperatorsFragment extends Fragment {
     private RecyclerView recyclerView;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NotNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = FragmentOperatorsBinding.inflate(getLayoutInflater());
         recyclerView = binding.operators;
         viewModel = new ViewModelProvider(this).get(OperatorsViewModel.class);
         viewModel.init();
-        adapter = new OperatorsAdapter((AppCompatActivity) getActivity());
+        adapter = new OperatorsAdapter((MainActivity) getActivity(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewModel.observeOperators().observe(this, data -> {
+        viewModel.observeOperators().observe(getViewLifecycleOwner(), data -> {
             if (data!=null) {
                 Console.log(data.toString());
                 adapter.setOperators(data.getData());
                 adapter.notifyDataSetChanged();
             }
         });
-    }
-
-    @Override
-    public View onCreateView(@NotNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
         return binding.getRoot();
     }
 

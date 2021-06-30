@@ -33,6 +33,9 @@ public class UserCache {
     @ColumnInfo(name = "email")
     private String email;
 
+    @ColumnInfo(name = "password")
+    private String password;
+
     @ColumnInfo(name = "role")
     private String role;
 
@@ -49,6 +52,7 @@ public class UserCache {
                 responseWrapper.getData().getUser().getLastName(),
                 responseWrapper.getData().getUser().getUsername(),
                 responseWrapper.getData().getUser().getEmail(),
+                responseWrapper.getData().getUser().getPassword(),
                 responseWrapper.getData().getUser().getRole().getName(),
                 responseWrapper.getData().getJwt(),
                 responseWrapper.getTimestamp()
@@ -94,6 +98,14 @@ public class UserCache {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {

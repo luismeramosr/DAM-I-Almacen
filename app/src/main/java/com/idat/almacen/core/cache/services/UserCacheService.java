@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.idat.almacen.core.api.models.User;
 import com.idat.almacen.core.cache.CacheDatabase;
 import com.idat.almacen.core.cache.models.UserCache;
+import com.idat.almacen.core.util.Helpers;
 
 import java.util.List;
 
@@ -42,8 +43,10 @@ public class UserCacheService {
         return db.authCacheRepository().getAuthCache().subscribeOn(Schedulers.io());
     }
 
-    public void updateCache(UserCache data) {
-        db.authCacheRepository().updateCache(data);
+    public void deleteCache() {
+        Helpers.getInstance().runOnBackgroundThread(() -> {
+            db.authCacheRepository().deleteCache();
+        });
     }
 
 }
