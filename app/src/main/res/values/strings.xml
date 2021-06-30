@@ -7,10 +7,19 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_inbound">Ingreso</string>
+    <string name="menu_home">Inicio</string>
     <string name="menu_profile">Perfil</string>
     <string name="hint_user">Usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="btnLogin_Text">Ingresar</string>
     <string name="btnRequestUnlock">Solicitar desbloqueo</string>
+    <string name="menu_logout">Salir</string>
+    <string name="store_name">Eva91</string>
+    <string name="warehouse_txt">Logística</string>
+    <string name="txt_logout">Cerrando sesión...</string>
+    <string name="tv_placeholder">placeholderText</string>
+    <string name="btnShowDetails">Ver</string>
+    <string name="menu_operators">Operarios</string>
+    <string name="user_Enabled">Habilitado</string>
+    <string name="user_Disabled">Deshabilitado</string>
 </resources>

@@ -19,10 +19,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Helpers.getInstance().setTimeout(() -> {
+        binding.animationSplash.postOnAnimationDelayed(() -> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-        }, 2000);
+        }, 2100);
     }
 }

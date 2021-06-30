@@ -1,7 +1,11 @@
 package com.idat.almacen.core.util;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -35,6 +39,11 @@ public class Helpers {
     @SuppressLint("NewApi")
     public LocalDateTime timestampToDateTime(Long timestamp) {
         return LocalDateTime.ofEpochSecond(timestamp, 0, ZoneOffset.ofHours(-5));
+    }
+
+    @SuppressLint("ShowToast")
+    public static void showToast(AppCompatActivity activity, String msg, int duration) {
+        activity.runOnUiThread(() -> Toast.makeText(activity, msg, duration).show());
     }
 
 }

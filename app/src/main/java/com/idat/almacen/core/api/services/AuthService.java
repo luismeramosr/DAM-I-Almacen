@@ -1,9 +1,9 @@
 package com.idat.almacen.core.api.services;
 
-import com.idat.almacen.core.api.RetrofitInstance;
+import com.idat.almacen.core.api.config.RetrofitInstance;
 import com.idat.almacen.core.api.dto.requests.LoginRequest;
 import com.idat.almacen.core.api.dto.responses.LoginResponse;
-import com.idat.almacen.core.api.dto.responses.Response;
+import com.idat.almacen.core.api.dto.responses.ResWrapper;
 import com.idat.almacen.core.api.repositories.IAuthRepository;
 
 
@@ -12,12 +12,19 @@ import io.reactivex.rxjava3.core.Observable;
 public class AuthService {
 
     private IAuthRepository repository;
+    private static AuthService instance;
 
-    public AuthService() {
+    private AuthService() {
         repository = RetrofitInstance.getInstance().createRepository(IAuthRepository.class);
     }
 
-    public Observable<Response<LoginResponse>> login(LoginRequest request) {
+    public static AuthService getInstance() {
+        if (instance == null)
+            instance = new AuthService();
+        return instance;
+    }
+
+    public Observable<ResWrapper<LoginResponse>> login(LoginRequest request) {
         return repository.login(request).toObservable();
     }
 

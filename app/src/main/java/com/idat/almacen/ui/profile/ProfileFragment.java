@@ -20,7 +20,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        binding = FragmentProfileBinding.inflate(getLayoutInflater());
         viewModel.getText().observe(getViewLifecycleOwner(), text -> {
             binding.tv.setText(text);
         });

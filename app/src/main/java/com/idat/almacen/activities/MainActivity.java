@@ -4,8 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import com.google.android.material.navigation.NavigationView;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,41 +14,43 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.idat.almacen.R;
-import com.idat.almacen.core.api.constants.Roles;
-import com.idat.almacen.core.api.services.AuthService;
-import com.idat.almacen.core.cache.models.AuthCache;
-import com.idat.almacen.core.cache.services.AuthCacheService;
-import com.idat.almacen.core.util.Console;
+import com.idat.almacen.core.constants.Menus;
+import com.idat.almacen.core.cache.models.UserCache;
+import com.idat.almacen.core.cache.services.UserCacheService;
+import com.idat.almacen.core.constants.TopLevelDestinations;
+import com.idat.almacen.core.util.Helpers;
 import com.idat.almacen.databinding.ActivityMainBinding;
-import com.idat.almacen.databinding.NavHeaderMainBinding;
+
+import java.util.List;
+
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import lombok.Getter;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private AuthCacheService service;
+    private UserCacheService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        service = AuthCacheService.getInstance(this);
-        setContentView(binding.getRoot());
-        setUpMenu();
-        setSupportActionBar(binding.appBarMain.toolbar);
-
+        service = UserCacheService.getInstance();
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.appBarMain.toolbar);
+        setUpMenu();
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profile)
-                .setDrawerLayout(drawer)
+                TopLevelDestinations.getInstance().getDestinations())
+                .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
     @Override
@@ -61,17 +62,30 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void setUpMenu() {
-        service.getAuthCache().observe(this, (data) -> {
-            binding.navView.inflateMenu(new Roles().getRoles().get(data.getRole()));
-            loadUserData(data);
-        });
+        service.getCachedData()
+                .subscribe(data -> {
+                    int idMenu = Menus.getInstance().get(data.getRole());
+                    binding.navView.inflateMenu(idMenu);
+                    loadUserData(data);
+                }, err -> {
+                    err.printStackTrace();
+                });
+
     }
 
-    private void loadUserData(AuthCache cachedData) {
+    private void loadUserData(UserCache cachedData) {
         View headerView = binding.navView.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.userName);
         TextView email = headerView.findViewById(R.id.userEmail);
-        username.setText(cachedData.getFirstName()+ " "+cachedData.getLastName());
+        TextView role = headerView.findViewById(R.id.userRole);
+        String user = String.format("%s %s",
+                        cachedData.getFirstName(),
+                        cachedData.getLastName());
+        username.setText(user);
         email.setText(cachedData.getEmail());
+        role.setText(cachedData.getRole());
+        Helpers.showToast(this,
+                String.format("Bienvenido %s", user), Toast.LENGTH_SHORT);
     }
+
 }

@@ -6,19 +6,20 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.idat.almacen.core.cache.models.AuthCache;
-import com.idat.almacen.core.cache.repositories.AuthCacheDao;
+import com.idat.almacen.core.app.Almacen;
+import com.idat.almacen.core.cache.models.UserCache;
+import com.idat.almacen.core.cache.repositories.UserCacheDao;
 
-@Database(entities = {AuthCache.class}, version = 1)
+@Database(entities = {UserCache.class}, version = 2)
 public abstract class CacheDatabase extends RoomDatabase {
     private static final String DB_NAME = "CacheDB";
 
     private static CacheDatabase instance;
 
-    public static CacheDatabase getInstance(final Context context) {
+    public static CacheDatabase getInstance() {
         if (instance==null) {
             instance = Room.databaseBuilder(
-                    context.getApplicationContext(),
+                    Almacen.getContext(),
                     CacheDatabase.class,
                     DB_NAME
             ).fallbackToDestructiveMigration().build();
@@ -27,5 +28,5 @@ public abstract class CacheDatabase extends RoomDatabase {
     }
 
     // Repositories
-    public abstract AuthCacheDao authCacheRepository();
+    public abstract UserCacheDao authCacheRepository();
 }

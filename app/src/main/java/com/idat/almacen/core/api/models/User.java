@@ -18,6 +18,9 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private boolean active;
     private int idRole;
+    private int idSchedule;
     private Role role;
+    private Schedule schedule;
 }
