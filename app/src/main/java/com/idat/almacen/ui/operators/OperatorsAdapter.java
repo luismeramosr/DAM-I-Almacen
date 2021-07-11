@@ -76,15 +76,10 @@ public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.View
                 operator.getLastName()
         ));
         holder.binding.userPhone.setText(String.valueOf(operator.getPhone()));
-        @SuppressLint("UseSwitchCompatOrMaterialCode")
-        SwitchMaterial userState = holder.binding.userIsActive;
-        if (operator.isActive()) {
-            userState.setChecked(true);
-            userState.setText(R.string.user_Enabled);
-        } else {
-            userState.setChecked(false);
-            userState.setText(R.string.user_Disabled);
-        }
+        if (!operator.isActive())
+            holder.binding.btnUnlockUser.setVisibility(View.VISIBLE);
+        else
+            holder.binding.btnUnlockUser.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -101,7 +96,7 @@ public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.View
             binding = OperatorCardBinding.bind(item);
             binding.userPhone.setOnClickListener(this::onCall);
             binding.btnShowDetails.setOnClickListener(this::onClick);
-            binding.userIsActive.setOnClickListener(this::onSwitch);
+            binding.btnUnlockUser.setOnClickListener(this::onUnlock);
         }
 
         private void onCall(View view) {
@@ -114,36 +109,20 @@ public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.View
             activity.startActivity(intent);
         }
 
-        private int getStringResource(boolean isActive) {
-            if (isActive)
-                return R.string.user_Enabled;
-            else
-                return R.string.user_Disabled;
-        }
-
-        private void updateUser() {
-
-        }
-
-        private void onSwitch(View view) {
+        private void onUnlock(View view) {
             User operator = operators.get(getAdapterPosition());
-            boolean isActive = binding.userIsActive.isChecked();
-            operator.setActive(isActive);
-            Helpers.getInstance().showAlertDialog(activity, "Ingrese su contraseña para continuar", () -> {
-
-                Helpers.getInstance().runOnBackgroundThread(() -> {
-                    UserService.getInstance()
-                        .updateUser(operator)
-                        .subscribe(res -> {
-                            binding.userIsActive.setText(getStringResource(isActive));
-                            binding.userIsActive.setChecked(isActive);
-                        }, err -> {
-                            err.printStackTrace();
-                        }).dispose();
+            operator.setActive(true);
+            service.updateUser(operator)
+                    .subscribe((res) -> {
+                        Helpers.getInstance().showToast(activity, "Usuario desbloqueado", Toast.LENGTH_SHORT);
+                        binding.btnUnlockUser.setVisibility(View.INVISIBLE);
+                    }, (err) -> {
+                        Helpers.getInstance().showToast(activity, "No se pudo desbloquear al usuario", Toast.LENGTH_SHORT);
+                        err.printStackTrace();
                     });
-                }, () -> {
-                    binding.userIsActive.setChecked(!isActive);
-            });
+            // Remember for the cart
+            //operators.remove(operator);
+            //notifyDataSetChanged();
         }
 
         @SuppressLint("ResourceType")

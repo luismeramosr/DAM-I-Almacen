@@ -29,5 +29,11 @@
     <fragment
         android:id="@+id/nav_operator_detail"
         android:name="com.idat.almacen.ui.operator_detail.OperatorDetailFragment"
-        android:label="Detalle de opeario" />
+        android:label="Detalle de opeario"
+        tools:layout="@layout/fragment_operator_detail"/>
+    <fragment
+        android:id="@+id/nav_new_operator"
+        android:name="com.idat.almacen.ui.operator_new.NewOperatorFragment"
+        android:label="@string/newOperatorLabel"
+        tools:layout="@layout/fragment_new_operator"/>
 </navigation>

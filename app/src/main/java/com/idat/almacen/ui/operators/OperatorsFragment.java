@@ -13,10 +13,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.idat.almacen.R;
 import com.idat.almacen.activities.MainActivity;
 import com.idat.almacen.core.api.models.User;
 import com.idat.almacen.core.util.Console;
+import com.idat.almacen.core.util.Helpers;
+import com.idat.almacen.core.util.SharedData;
 import com.idat.almacen.databinding.FragmentOperatorsBinding;
+import com.idat.almacen.ui.loading_dialog.LoadingDialog;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,26 +33,50 @@ public class OperatorsFragment extends Fragment {
     private OperatorsViewModel viewModel;
     private OperatorsAdapter adapter;
     private RecyclerView recyclerView;
+    private MainActivity activity;
+    private LoadingDialog loadingDialog;
 
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = FragmentOperatorsBinding.inflate(getLayoutInflater());
-        recyclerView = binding.operators;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activity = (MainActivity) getActivity();
+        loadingDialog = new LoadingDialog(activity);
+        loadingDialog.startLoading();
         viewModel = new ViewModelProvider(this).get(OperatorsViewModel.class);
         viewModel.init();
-        adapter = new OperatorsAdapter((MainActivity) getActivity(), this);
+        binding = FragmentOperatorsBinding.inflate(getLayoutInflater());
+        binding.btnAddOperator.setOnClickListener(this::onAddOperator);
+        recyclerView = binding.operators;
+        adapter = new OperatorsAdapter(activity, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewModel.observeOperators().observe(getViewLifecycleOwner(), data -> {
+        viewModel.observeOperators().observe(this, data -> {
             if (data!=null) {
                 Console.log(data.toString());
                 adapter.setOperators(data.getData());
                 adapter.notifyDataSetChanged();
             }
         });
+        Helpers.getInstance().setTimeout(() -> {
+            loadingDialog.stopLoading();
+        }, 400);
+    }
+
+    @Override
+    public View onCreateView(@NotNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return binding.getRoot();
+    }
+
+    private void onAddOperator(View view) {
+        User user = new User();
+        user.setFirstName("Nombres");
+        user.setLastName("Apellidos");
+        user.setEmail("@mail.com");
+        MainActivity activity = (MainActivity) getActivity();
+        SharedData.getInstance().setUser(user);
+        activity.getNavigationController().navigate(R.id.nav_new_operator);
     }
 
     @Override

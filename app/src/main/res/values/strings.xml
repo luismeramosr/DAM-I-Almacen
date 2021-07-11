@@ -22,4 +22,17 @@
     <string name="menu_operators">Operarios</string>
     <string name="user_Enabled">Habilitado</string>
     <string name="user_Disabled">Deshabilitado</string>
+    <string name="btnUnlockText">Desbloquear</string>
+    <string name="lblDni">DNI:</string>
+    <string name="lblPhone">Teléfono:</string>
+    <string name="lblEmail">E-mail:</string>
+    <string name="lblSchedule">Horario:</string>
+    <string name="btnUpdateUser">Modificar datos del operario</string>
+    <string name="btnDeleteUser">Eliminar operario</string>
+    <string name="btnUpdateUserCommit">Guardar cambios</string>
+    <string name="btnAddOperator">Agregar operario</string>
+    <string name="btnSaveNewUser">Registrar operario</string>
+    <string name="btnCancelNewUser">Cancelar</string>
+    <string name="newOperatorLabel">Nuevo operario</string>
+    <string name="txtLoading">Cargando...</string>
 </resources>

@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         service.getCachedData()
                 .subscribe(data -> {
                     int idMenu = NavigationConfig.getInstance().getMenu(data.getRole());
-                    int idNavGraph = NavigationConfig.getInstance().getNavGraph(data.getRole());
                     binding.navView.inflateMenu(idMenu);
                     loadUserData(data);
                 }, err -> {

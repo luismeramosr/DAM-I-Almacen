@@ -7,7 +7,9 @@ import com.idat.almacen.core.api.dto.responses.ResWrapper;
 import com.idat.almacen.core.api.repositories.IAuthRepository;
 
 
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AuthService {
 
@@ -24,8 +26,8 @@ public class AuthService {
         return instance;
     }
 
-    public Observable<ResWrapper<LoginResponse>> login(LoginRequest request) {
-        return repository.login(request).toObservable();
+    public Flowable<ResWrapper<LoginResponse>> login(LoginRequest request) {
+        return repository.login(request).subscribeOn(Schedulers.io());
     }
 
 }

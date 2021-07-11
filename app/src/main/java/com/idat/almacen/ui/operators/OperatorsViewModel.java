@@ -27,7 +27,10 @@ public class OperatorsViewModel extends ViewModel {
             service.getAllUsers()
         );
 
-        operators.addSource(source, listResponse -> operators.setValue(listResponse));
+        operators.addSource(source, listResponse -> {
+            operators.setValue(listResponse);
+            operators.removeSource(source);
+        });
     }
 
     public LiveData<ResWrapper<List<User>>> observeOperators() {

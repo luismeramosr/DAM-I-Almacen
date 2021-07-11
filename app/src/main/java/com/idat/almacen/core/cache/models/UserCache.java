@@ -19,7 +19,7 @@ import lombok.ToString;
 public class UserCache {
     @NonNull
     @PrimaryKey
-    private String id = "";
+    private int id = 1;
 
     @ColumnInfo(name = "firstName")
     private String firstName;
@@ -60,11 +60,11 @@ public class UserCache {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

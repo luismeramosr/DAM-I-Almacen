@@ -14,6 +14,7 @@ import com.idat.almacen.core.api.dto.requests.LoginRequest;
 import com.idat.almacen.core.api.services.AuthService;
 import com.idat.almacen.core.cache.models.UserCache;
 import com.idat.almacen.core.cache.services.UserCacheService;
+import com.idat.almacen.core.util.Console;
 import com.idat.almacen.core.util.Helpers;
 import com.idat.almacen.databinding.ActivityLoginBinding;
 
@@ -41,12 +42,14 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.btnLogin.setOnClickListener((View v) -> {
             if (validateRequestData(username.getText().toString(), password.getText().toString())) {
-
+                cacheService.deleteCache();
                 LoginRequest request = new LoginRequest(username.getText().toString(), password.getText().toString());
+                Console.log("Logging in...");
                 authService.login(request)
-                      .subscribeOn(Schedulers.io())
                       .subscribe((response) -> {
+                          Console.log(response.toString());
                           if (response.getErrorMessage() == null) {
+
                               cacheService.cacheData(UserCache.ofLoginResponse(response));
                               goToMainActivity();
                           } else {

@@ -161,43 +161,30 @@
             app:srcCompat="@drawable/avatarplaceholder" />
 
         <Button
-            android:id="@+id/btnUpdateUser"
-            style="@android:style/Widget.Material.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="@string/btnUpdateUser"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/warning"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userDetScheduleId" />
-
-        <Button
-            android:id="@+id/btnDeleteUser"
+            android:id="@+id/btnCancelNewUser"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/btnDeleteUser"
+            android:text="@string/btnCancelNewUser"
             android:textColor="@color/black"
             app:backgroundTint="@color/danger"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCommitChanges" />
+            app:layout_constraintTop_toBottomOf="@+id/btnSaveNewUser" />
 
         <Button
-            android:id="@+id/btnCommitChanges"
+            android:id="@+id/btnSaveNewUser"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
-            android:text="@string/btnUpdateUserCommit"
+            android:text="@string/btnSaveNewUser"
             android:textColor="@color/black"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:backgroundTint="@color/success"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userDetScheduleId" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+

@@ -10,8 +10,9 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Call;
 
-public class UserService {
+public class UserService implements IUserRepository {
 
     private IUserRepository repository;
     private static UserService instance;
@@ -30,8 +31,16 @@ public class UserService {
         return repository.getAllUsers().subscribeOn(Schedulers.io());
     }
 
+    public Flowable<ResWrapper<User>> saveUser(User user) {
+        return repository.saveUser(user).subscribeOn(Schedulers.io());
+    }
+
     public Flowable<ResWrapper<User>> updateUser(User user) {
         return repository.updateUser(user).subscribeOn(Schedulers.io());
+    }
+
+    public Call<Void> deleteUserById(int id) {
+        return repository.deleteUserById(id);
     }
 
 }

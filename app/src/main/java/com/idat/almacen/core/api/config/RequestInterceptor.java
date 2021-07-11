@@ -37,11 +37,17 @@ public class RequestInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         if (cache != null) {
-            Request requestWithJWT = chain.request().newBuilder()
-                    .header("Authorization", "Bearer "+ cache.getJwt())
-                    .build();
-            return chain.proceed(requestWithJWT);
-        } else {
+            if (cache.getJwt() != null) {
+                Request requestWithJWT = chain.request().newBuilder()
+                        .header("Authorization", "Bearer "+ cache.getJwt())
+                        .build();
+                return chain.proceed(requestWithJWT);
+            } else {
+                Request request = chain.request().newBuilder().build();
+                return chain.proceed(request);
+            }
+        }
+         else {
             Request request = chain.request().newBuilder().build();
             return chain.proceed(request);
         }
