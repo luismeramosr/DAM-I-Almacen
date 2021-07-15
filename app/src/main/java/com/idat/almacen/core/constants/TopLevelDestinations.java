@@ -16,6 +16,7 @@ public class TopLevelDestinations {
         destinations = new ArrayList<>();
         destinations.add(R.id.nav_home_admin);
         destinations.add(R.id.nav_home_operator);
+        destinations.add(R.id.nav_inventory);
         destinations.add(R.id.nav_operators);
         destinations.add(R.id.nav_profile);
         destinations.add(R.id.nav_logout);

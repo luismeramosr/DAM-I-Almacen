@@ -1,9 +1,11 @@
 package com.idat.almacen.ui.operator_new;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,16 +19,20 @@ import com.idat.almacen.core.api.models.User;
 import com.idat.almacen.core.util.Helpers;
 import com.idat.almacen.databinding.FragmentNewOperatorBinding;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class NewOperatorFragment extends Fragment {
 
     private FragmentNewOperatorBinding binding;
     private NewOperatorViewModel viewModel;
     private User user;
     private Helpers helpers;
+    private MainActivity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = (MainActivity) getActivity();
         binding = FragmentNewOperatorBinding.inflate(getLayoutInflater());
         helpers = Helpers.getInstance();
         viewModel = new ViewModelProvider(this).get(NewOperatorViewModel.class);
@@ -36,19 +42,13 @@ public class NewOperatorFragment extends Fragment {
         viewModel.observeUser()
                 .observe(this, (response) -> {
                     user = response.getData();
-                    binding.userDetFirstName.setText(user.getFirstName());
-                    binding.userDetLastName.setText(user.getLastName());
-                    binding.userDetDni.setText(String.valueOf(user.getDni()));
-                    binding.userDetPhone.setText(String.valueOf(user.getPhone()));
-                    binding.userDetEmail.setText(user.getEmail());
-                    binding.userDetScheduleId.setText(String.valueOf(user.getIdSchedule()));
                 });
     }
 
     private void saveUser(View view) {
+        hideSoftKeyboard();
         viewModel.saveUser(getUserFromUi())
             .observe(this, (newUser -> {
-                MainActivity activity = (MainActivity) getActivity();
                 helpers.setTimeout(() -> {
                     helpers.runOnUiThread(activity, () -> {
                         helpers.showToast(activity, "Operario registrado", Toast.LENGTH_SHORT);
@@ -59,7 +59,6 @@ public class NewOperatorFragment extends Fragment {
     }
 
     private void cancel(View view) {
-        MainActivity activity = (MainActivity) getActivity();
         activity.getNavigationController().navigate(R.id.nav_operators);
     }
 
@@ -67,12 +66,17 @@ public class NewOperatorFragment extends Fragment {
         User editedUser = user;
         editedUser.setFirstName(binding.userDetFirstName.getText().toString());
         editedUser.setLastName(binding.userDetLastName.getText().toString());
-        editedUser.setDni(Integer.parseInt(binding.userDetDni.getText().toString()));
-        editedUser.setPhone(Integer.parseInt(binding.userDetPhone.getText().toString()));
+        editedUser.setDni(binding.userDetDni.getText().toString());
+        editedUser.setPhone(binding.userDetPhone.getText().toString());
         editedUser.setEmail(binding.userDetEmail.getText().toString());
         editedUser.setIdRole(2);
         editedUser.setIdSchedule(Integer.parseInt(binding.userDetScheduleId.getText().toString()));
         return editedUser;
+    }
+
+    public void hideSoftKeyboard(){
+        InputMethodManager imm =(InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);
     }
 
     @Nullable

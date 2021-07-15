@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.navigation.NavigationView;
 import com.idat.almacen.R;
+import com.idat.almacen.core.api.ws.WebSocketClient;
 import com.idat.almacen.core.constants.NavigationConfig;
 import com.idat.almacen.core.cache.models.UserCache;
 import com.idat.almacen.core.cache.services.UserCacheService;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
         navigationController = navController;
         setUpMenu();
+        WebSocketClient.getInstance().initConnection();
     }
 
     @Override

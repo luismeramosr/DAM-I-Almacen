@@ -36,4 +36,14 @@
         android:name="com.idat.almacen.ui.operator_new.NewOperatorFragment"
         android:label="@string/newOperatorLabel"
         tools:layout="@layout/fragment_new_operator"/>
+    <fragment
+        android:id="@+id/nav_item_detail"
+        android:name="com.idat.almacen.ui.item_detail.ItemDetailFragment"
+        android:label="@string/itemDetailLabel"
+        tools:layout="@layout/fragment_item_detail"/>
+    <fragment
+        android:id="@+id/nav_inventory"
+        android:name="com.idat.almacen.ui.inventory.InventoryFragment"
+        android:label="@string/inventoryLabel"
+        tools:layout="@layout/fragment_inventory"/>
 </navigation>

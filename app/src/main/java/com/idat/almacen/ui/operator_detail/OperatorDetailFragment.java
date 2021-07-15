@@ -39,11 +39,13 @@ public class OperatorDetailFragment extends Fragment {
     private User user;
     private List<EditText> editTexts;
     private Helpers helpers;
+    private MainActivity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = FragmentOperatorDetailBinding.inflate(getLayoutInflater());
+        activity = (MainActivity) getActivity();
         viewModel = new ViewModelProvider(this).get(OperatorDetailViewModel.class);
         viewModel.init();
         helpers = Helpers.getInstance();
@@ -77,17 +79,17 @@ public class OperatorDetailFragment extends Fragment {
         disableEdition();
         viewModel.updateUser(getUserFromUi())
               .observe(this, (response) -> {
-                  MainActivity activity = (MainActivity) getActivity();
-                  helpers.runOnUiThread(activity, () -> {
-                      helpers.showToast(activity, "Operario actualizado", Toast.LENGTH_SHORT);
-                      activity.getNavigationController().navigate(R.id.nav_operators);
-                  });
+                  helpers.setTimeout(() -> {
+                      helpers.runOnUiThread(activity, () -> {
+                          helpers.showToast(activity, "Operario actualizado", Toast.LENGTH_SHORT);
+                          activity.getNavigationController().navigate(R.id.nav_operators);
+                      });
+                  }, 200);
               });
     }
 
     private void deleteUser(View view) {
         viewModel.deleteUser(getUserFromUi().getId());
-        MainActivity activity = (MainActivity) getActivity();
         helpers.showToast(activity, "Usuario eliminado", Toast.LENGTH_SHORT);
         activity.getNavigationController().navigate(R.id.nav_operators);
     }
@@ -116,8 +118,8 @@ public class OperatorDetailFragment extends Fragment {
         User editedUser = user;
         editedUser.setFirstName(binding.userDetFirstName.getText().toString());
         editedUser.setLastName(binding.userDetLastName.getText().toString());
-        editedUser.setDni(Integer.parseInt(binding.userDetDni.getText().toString()));
-        editedUser.setPhone(Integer.parseInt(binding.userDetPhone.getText().toString()));
+        editedUser.setDni(binding.userDetDni.getText().toString());
+        editedUser.setPhone(binding.userDetPhone.getText().toString());
         editedUser.setEmail(binding.userDetEmail.getText().toString());
         editedUser.setIdSchedule(Integer.parseInt(binding.userDetScheduleId.getText().toString()));
         return editedUser;

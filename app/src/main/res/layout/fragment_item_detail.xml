@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/itemDetProvider"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/itemDetBrand"
+            app:layout_constraintTop_toTopOf="@+id/lblItemDetProvider" />
+
+        <EditText
+            android:id="@+id/itemDetDescription"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/itemDetBrand"
+            app:layout_constraintTop_toTopOf="@+id/lblItemDetDescription" />
+
+        <EditText
+            android:id="@+id/itemDetPrice"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/itemDetDescription"
+            app:layout_constraintTop_toTopOf="@+id/lblItemDetPrice" />
+
+        <EditText
+            android:id="@+id/itemDetStock"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/itemDetPrice"
+            app:layout_constraintTop_toTopOf="@+id/lblItemDetStock" />
+
+        <EditText
+            android:id="@+id/itemDetStockMin"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/itemDetStock"
+            app:layout_constraintTop_toTopOf="@+id/lblItemDetStockMin" />
+
+        <EditText
+            android:id="@+id/itemDetBrand"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/itemDetBarcode"
+            app:layout_constraintTop_toTopOf="@+id/lblItemDetBrand" />
+
+        <EditText
+            android:id="@+id/itemDetBarcode"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:importantForAccessibility="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/lblItemBarcode"
+            app:layout_constraintTop_toTopOf="@+id/lblItemBarcode" />
+
+        <TextView
+            android:id="@+id/lblItemBarcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblItemBarcode"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDetName" />
+
+        <TextView
+            android:id="@+id/lblItemDetPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblItemPrice"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/lblItemDetDescription"
+            app:layout_constraintTop_toBottomOf="@+id/lblItemDetDescription" />
+
+        <TextView
+            android:id="@+id/lblItemDetBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblBrand"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/lblItemBarcode"
+            app:layout_constraintTop_toBottomOf="@+id/lblItemBarcode" />
+
+        <TextView
+            android:id="@+id/lblItemDetProvider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblItemDetProvider"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/lblItemDetBrand"
+            app:layout_constraintTop_toBottomOf="@+id/lblItemDetBrand" />
+
+        <TextView
+            android:id="@+id/lblItemDetStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblItemStock"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/lblItemDetPrice"
+            app:layout_constraintTop_toBottomOf="@+id/lblItemDetPrice" />
+
+        <TextView
+            android:id="@+id/lblItemDetDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblItemDescription"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/lblItemDetProvider"
+            app:layout_constraintTop_toBottomOf="@+id/lblItemDetProvider" />
+
+        <TextView
+            android:id="@+id/lblItemDetStockMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/lblItemStockMin"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/lblItemDetStock"
+            app:layout_constraintTop_toBottomOf="@+id/lblItemDetStock" />
+
+        <ImageView
+            android:id="@+id/itemDetImage"
+            android:layout_width="160sp"
+            android:layout_height="160sp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/packageplaceholder" />
+
+        <EditText
+            android:id="@+id/itemDetName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/amaranth"
+            android:importantForAccessibility="no"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            android:text="@string/tv_placeholder"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDetImage" />
+
+        <Button
+            android:id="@+id/btnDeleteItem"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/btnDeleteItem"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/danger"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnUpdateItem" />
+
+        <Button
+            android:id="@+id/btnCommitItemChanges"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnCommitUpdate"
+            android:textColor="@color/black"
+            android:visibility="invisible"
+            app:backgroundTint="@color/success"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnUpdateItem" />
+
+        <Button
+            android:id="@+id/btnUpdateItem"
+            style="@android:style/Widget.Material.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/btnUpdateItem"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/warning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDetStockMin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+

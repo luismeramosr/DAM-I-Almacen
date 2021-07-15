@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-public interface IUserRepository {
+public interface UserRepository {
 
     @GET(Endpoints.operators)
     Flowable<ResWrapper<List<User>>> getAllUsers();

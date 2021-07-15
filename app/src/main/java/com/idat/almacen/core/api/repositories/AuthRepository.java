@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface IAuthRepository {
+public interface AuthRepository {
     @POST(Endpoints.login)
     Flowable<ResWrapper<LoginResponse>> login(@Body LoginRequest request);
 }

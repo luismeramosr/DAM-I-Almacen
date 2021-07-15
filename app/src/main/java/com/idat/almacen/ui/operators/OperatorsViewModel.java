@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.idat.almacen.core.api.dto.responses.ResWrapper;
 import com.idat.almacen.core.api.models.User;
 import com.idat.almacen.core.api.services.UserService;
+import com.idat.almacen.core.util.Console;
 
 import java.util.List;
 

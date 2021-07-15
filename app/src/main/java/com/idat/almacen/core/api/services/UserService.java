@@ -4,7 +4,7 @@ package com.idat.almacen.core.api.services;
 import com.idat.almacen.core.api.config.RetrofitInstance;
 import com.idat.almacen.core.api.dto.responses.ResWrapper;
 import com.idat.almacen.core.api.models.User;
-import com.idat.almacen.core.api.repositories.IUserRepository;
+import com.idat.almacen.core.api.repositories.UserRepository;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 
-public class UserService implements IUserRepository {
+public class UserService implements UserRepository {
 
-    private IUserRepository repository;
+    private UserRepository repository;
     private static UserService instance;
 
     private UserService() {
-        repository = RetrofitInstance.getInstance().createRepository(IUserRepository.class);
+        repository = RetrofitInstance.getInstance().createRepository(UserRepository.class);
     }
 
     public static UserService getInstance() {

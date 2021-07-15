@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -38,19 +40,18 @@ import java.util.List;
 
 import lombok.Setter;
 
-public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.ViewHolder> {
+public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.ViewHolder> implements Filterable {
 
 
     private final MainActivity activity;
-    private final Fragment fragment;
-    @Setter
     private List<User> operators;
+    private List<User> allOperators;
     private UserService service;
 
-    public OperatorsAdapter(MainActivity _activity, Fragment _fragment) {
+    public OperatorsAdapter(MainActivity _activity) {
         activity = _activity;
-        fragment = _fragment;
         operators = new ArrayList<>();
+        allOperators = new ArrayList<>();
         service = UserService.getInstance();
     }
 
@@ -85,6 +86,49 @@ public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.View
     @Override
     public int getItemCount() {
         return operators.size();
+    }
+
+    public void setOperators(List<User> _operators) {
+        operators = _operators;
+        allOperators = new ArrayList<>(operators);
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<User> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(allOperators);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (User operator : allOperators) {
+                    if (
+                        String.format("%s %s",
+                            operator.getFirstName(),
+                            operator.getLastName()).toLowerCase().contains(filterPattern)
+                    ) {
+                        filteredList.add(operator);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            operators.clear();
+            operators.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    @Override
+    public Filter getFilter() {
+        return filter;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

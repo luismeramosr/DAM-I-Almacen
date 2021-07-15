@@ -1,4 +1,4 @@
-package com.idat.almacen.ui.operators;
+package com.idat.almacen.ui.inventory;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,23 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.idat.almacen.R;
 import com.idat.almacen.activities.MainActivity;
-import com.idat.almacen.core.api.models.User;
-import com.idat.almacen.core.util.Console;
+import com.idat.almacen.core.api.ws.WebSocketClient;
 import com.idat.almacen.core.util.Helpers;
-import com.idat.almacen.core.util.SharedData;
-import com.idat.almacen.databinding.FragmentOperatorsBinding;
+import com.idat.almacen.databinding.FragmentInventoryBinding;
 import com.idat.almacen.ui.loading_dialog.LoadingDialog;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class OperatorsFragment extends Fragment {
+public class InventoryFragment extends Fragment {
 
-    private FragmentOperatorsBinding binding;
-    private OperatorsViewModel viewModel;
-    private OperatorsAdapter adapter;
+    private FragmentInventoryBinding binding;
+    private InventoryViewModel viewModel;
+    private InventoryAdapter adapter;
     private RecyclerView recyclerView;
     private MainActivity activity;
     private LoadingDialog loadingDialog;
@@ -45,29 +41,32 @@ public class OperatorsFragment extends Fragment {
         activity = (MainActivity) getActivity();
         loadingDialog = new LoadingDialog(activity);
         loadingDialog.startLoading();
-        binding = FragmentOperatorsBinding.inflate(getLayoutInflater());
-        viewModel = new ViewModelProvider(this).get(OperatorsViewModel.class);
+        binding = FragmentInventoryBinding.inflate(getLayoutInflater());
+        viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
         viewModel.init();
-        binding.searchBar.setOnQueryTextListener(filterOperators());
-        binding.searchBar.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        binding.btnAddOperator.setOnClickListener(this::onAddOperator);
-        recyclerView = binding.operators;
-        adapter = new OperatorsAdapter(activity);
+        binding.btnAddItem.setOnClickListener(this::addItem);
+        binding.itemSearchBar.setOnQueryTextListener(filterItems());
+        binding.itemSearchBar.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        recyclerView = binding.items;
+        adapter = new InventoryAdapter(activity);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewModel.observeOperators().observe(getViewLifecycleOwner(), data -> {
-            if (data!=null) {
-                adapter.setOperators(data.getData());
-                adapter.notifyDataSetChanged();
-            }
-        });
+        viewModel.observeItems()
+                .observe(getViewLifecycleOwner(), (response) -> {
+                    adapter.setItems(response.getData());
+                    adapter.notifyDataSetChanged();
+                });
         Helpers.getInstance().setTimeout(() -> {
             loadingDialog.stopLoading();
         }, 400);
+
         return binding.getRoot();
     }
 
-    public SearchView.OnQueryTextListener filterOperators() {
+    private void addItem(View view) {
+    }
+
+    private SearchView.OnQueryTextListener filterItems() {
         return new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -82,17 +81,9 @@ public class OperatorsFragment extends Fragment {
         };
     }
 
-    private void onAddOperator(View view) {
-        User user = new User();
-        MainActivity activity = (MainActivity) getActivity();
-        SharedData.getInstance().setUser(user);
-        activity.getNavigationController().navigate(R.id.nav_new_operator);
-    }
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         binding = null;
     }
-
 }

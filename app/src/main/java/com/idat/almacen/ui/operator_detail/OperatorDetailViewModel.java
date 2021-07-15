@@ -19,14 +19,16 @@ import retrofit2.Response;
 public class OperatorDetailViewModel extends ViewModel {
 
     private UserService service;
-    private MediatorLiveData<ResWrapper<User>> userData = new MediatorLiveData<>();
+    private MediatorLiveData<ResWrapper<User>> userData;
 
     public void init() {
         service = UserService.getInstance();
+        userData = new MediatorLiveData<>();
         userData.setValue(new ResWrapper<>(
             SharedData.getInstance().getUser(),
             System.currentTimeMillis(),
-            null));
+            null
+        ));
     }
 
     public LiveData<ResWrapper<User>> observeUser() { return userData; }

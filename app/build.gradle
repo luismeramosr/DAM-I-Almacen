@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.idat.almacen"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -24,15 +24,18 @@ android {
 
     buildTypes {
         def SERVER_URL = "SERVER_URL"
+        def WSSERVER_URL = "WSSERVER_URL"
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", SERVER_URL, getProperty("prod.server.url")
+            buildConfigField "String", WSSERVER_URL, getProperty("prod.wsserver.url")
         }
 
         debug {
             buildConfigField "String", SERVER_URL, getProperty("dev.server.url")
+            buildConfigField "String", WSSERVER_URL, getProperty("dev.wsserver.url")
         }
     }
     compileOptions {

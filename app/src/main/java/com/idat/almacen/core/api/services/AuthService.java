@@ -4,20 +4,19 @@ import com.idat.almacen.core.api.config.RetrofitInstance;
 import com.idat.almacen.core.api.dto.requests.LoginRequest;
 import com.idat.almacen.core.api.dto.responses.LoginResponse;
 import com.idat.almacen.core.api.dto.responses.ResWrapper;
-import com.idat.almacen.core.api.repositories.IAuthRepository;
+import com.idat.almacen.core.api.repositories.AuthRepository;
 
 
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AuthService {
 
-    private IAuthRepository repository;
+    private AuthRepository repository;
     private static AuthService instance;
 
     private AuthService() {
-        repository = RetrofitInstance.getInstance().createRepository(IAuthRepository.class);
+        repository = RetrofitInstance.getInstance().createRepository(AuthRepository.class);
     }
 
     public static AuthService getInstance() {

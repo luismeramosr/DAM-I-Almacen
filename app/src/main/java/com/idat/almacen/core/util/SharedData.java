@@ -1,5 +1,6 @@
 package com.idat.almacen.core.util;
 
+import com.idat.almacen.core.api.models.Item;
 import com.idat.almacen.core.api.models.User;
 
 import java.util.HashMap;
@@ -14,6 +15,10 @@ public class SharedData {
     @Getter
     @Setter
     private User user;
+
+    @Getter
+    @Setter
+    private Item item;
 
     private SharedData() {
 
