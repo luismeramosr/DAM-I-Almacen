@@ -47,15 +47,24 @@ public class NewOperatorFragment extends Fragment {
 
     private void saveUser(View view) {
         hideSoftKeyboard();
-        viewModel.saveUser(getUserFromUi())
-            .observe(this, (newUser -> {
-                helpers.setTimeout(() -> {
-                    helpers.runOnUiThread(activity, () -> {
-                        helpers.showToast(activity, "Operario registrado", Toast.LENGTH_SHORT);
-                        activity.getNavigationController().navigate(R.id.nav_operators);
-                    });
-                }, 200);
-            }));
+        User newUser = getUserFromUi();
+        if (!newUser.getFirstName().equals("") &&
+            !newUser.getLastName().equals("") &&
+            !newUser.getDni().equals("")  &&
+            !newUser.getEmail().equals("") &&
+            newUser.getIdSchedule() != 0) {
+            viewModel.saveUser(newUser)
+                .observe(this, (response -> {
+                    helpers.setTimeout(() -> {
+                        helpers.runOnUiThread(activity, () -> {
+                            helpers.showToast(activity, "Operario registrado", Toast.LENGTH_SHORT);
+                            activity.getNavigationController().navigate(R.id.nav_operators);
+                        });
+                    }, 200);
+                }));
+        } else {
+            helpers.showToast(activity, "Debe llenar todos los campos.", Toast.LENGTH_SHORT);
+        }
     }
 
     private void cancel(View view) {
@@ -70,7 +79,11 @@ public class NewOperatorFragment extends Fragment {
         editedUser.setPhone(binding.userDetPhone.getText().toString());
         editedUser.setEmail(binding.userDetEmail.getText().toString());
         editedUser.setIdRole(2);
-        editedUser.setIdSchedule(Integer.parseInt(binding.userDetScheduleId.getText().toString()));
+        try {
+            editedUser.setIdSchedule(Integer.parseInt(binding.userDetScheduleId.getText().toString()));
+        } catch (NumberFormatException err) {
+            helpers.showToast(activity, "Debe llenar todos los campos.", Toast.LENGTH_SHORT);
+        }
         return editedUser;
     }
 

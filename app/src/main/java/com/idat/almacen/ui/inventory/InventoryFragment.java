@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.idat.almacen.R;
 import com.idat.almacen.activities.MainActivity;
+import com.idat.almacen.core.api.models.Item;
 import com.idat.almacen.core.api.ws.WebSocketClient;
 import com.idat.almacen.core.util.Helpers;
+import com.idat.almacen.core.util.SharedData;
 import com.idat.almacen.databinding.FragmentInventoryBinding;
 import com.idat.almacen.ui.loading_dialog.LoadingDialog;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 public class InventoryFragment extends Fragment {
 
@@ -64,6 +63,7 @@ public class InventoryFragment extends Fragment {
     }
 
     private void addItem(View view) {
+        activity.getNavigationController().navigate(R.id.nav_new_item);
     }
 
     private SearchView.OnQueryTextListener filterItems() {

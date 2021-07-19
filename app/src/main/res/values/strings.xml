@@ -57,4 +57,17 @@
     <string name="btnDeleteItem">Eliminar item</string>
     <string name="btnUpdateItem">Modificar datos del item</string>
     <string name="lblItemDetProvider">Proveedor:</string>
+    <string name="newItemName">Nombre del item</string>
+    <string name="newItemBrandHint">Marca</string>
+    <string name="newItemBarcodeHint">Código</string>
+    <string name="newItemProviderHint">Proveedor</string>
+    <string name="newItemDescHint">Descripción</string>
+    <string name="newItemPriceHint">Precio</string>
+    <string name="newItemStockHint">Stock actual</string>
+    <string name="newItemStockMinHint">Stock mínimo</string>
+    <string name="btnNewItemCancel">Cancelar</string>
+    <string name="btnSaveNewItem">Registrar item</string>
+    <string name="lblUserProfilePassword">Contraseña nueva: </string>
+    <string name="userProfilePasswordHint">*********</string>
+    <string name="btnUpdatePassword">Actualizar contraseña</string>
 </resources>

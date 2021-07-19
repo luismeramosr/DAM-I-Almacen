@@ -14,7 +14,7 @@ import com.idat.almacen.core.cache.services.UserCacheService;
 
 import lombok.Getter;
 
-public class HomeAdminViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel {
 
     private MediatorLiveData<UserCache> userData = new MediatorLiveData<>();
     private UserCacheService service;

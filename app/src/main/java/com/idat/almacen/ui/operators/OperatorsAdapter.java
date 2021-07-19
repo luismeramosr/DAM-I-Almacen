@@ -156,6 +156,7 @@ public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.View
         private void onUnlock(View view) {
             User operator = operators.get(getAdapterPosition());
             operator.setActive(true);
+            operator.setPassword("no-update");
             service.updateUser(operator)
                     .subscribe((res) -> {
                         Helpers.getInstance().showToast(activity, "Usuario desbloqueado", Toast.LENGTH_SHORT);
@@ -164,9 +165,6 @@ public class OperatorsAdapter extends RecyclerView.Adapter<OperatorsAdapter.View
                         Helpers.getInstance().showToast(activity, "No se pudo desbloquear al usuario", Toast.LENGTH_SHORT);
                         err.printStackTrace();
                     });
-            // Remember for the cart
-            //operators.remove(operator);
-            //notifyDataSetChanged();
         }
 
         @SuppressLint("ResourceType")

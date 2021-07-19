@@ -3,10 +3,7 @@ package com.idat.almacen.core.constants;
 import com.idat.almacen.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import lombok.Getter;
 
 public class TopLevelDestinations {
     private static TopLevelDestinations instance;
@@ -14,8 +11,8 @@ public class TopLevelDestinations {
 
     private TopLevelDestinations() {
         destinations = new ArrayList<>();
-        destinations.add(R.id.nav_home_admin);
-        destinations.add(R.id.nav_home_operator);
+        destinations.add(R.id.nav_home);
+        destinations.add(R.id.nav_home);
         destinations.add(R.id.nav_inventory);
         destinations.add(R.id.nav_operators);
         destinations.add(R.id.nav_profile);

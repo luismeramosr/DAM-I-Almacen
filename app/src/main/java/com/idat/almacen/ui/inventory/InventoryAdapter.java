@@ -112,7 +112,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
         public ViewHolder(@NotNull View itemView) {
             super(itemView);
             binding = ItemCardBinding.bind(itemView);
-            binding.btnShowItemDetail.setOnClickListener(this::showItemDetail);
+            binding.getRoot().setOnClickListener(this::showItemDetail);
         }
 
         private void showItemDetail(View view) {

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home_admin">
+    app:startDestination="@+id/nav_home">
 
     <fragment
-        android:id="@+id/nav_home_admin"
-        android:name="com.idat.almacen.ui.home_admin.HomeAdminFragment"
+        android:id="@+id/nav_home"
+        android:name="com.idat.almacen.ui.home_admin.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home_admin" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_profile"
@@ -46,4 +46,12 @@
         android:name="com.idat.almacen.ui.inventory.InventoryFragment"
         android:label="@string/inventoryLabel"
         tools:layout="@layout/fragment_inventory"/>
+    <fragment
+        android:id="@+id/nav_new_item"
+        android:name="com.idat.almacen.ui.item_new.NewItemFragment"
+        android:label="nav_new_item" />
+    <fragment
+        android:id="@+id/nav_operator_fragment"
+        android:name="com.idat.almacen.ui.home_operator.HomeOperatorFragment"
+        android:label="HomeOperatorFragment" />
 </navigation>

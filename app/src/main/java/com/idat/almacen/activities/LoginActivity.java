@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                       .subscribe((response) -> {
                           Console.log(response.toString());
                           if (response.getErrorMessage() == null) {
-
                               cacheService.cacheData(UserCache.ofLoginResponse(response));
                               goToMainActivity();
                           } else {

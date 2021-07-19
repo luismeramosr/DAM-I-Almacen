@@ -8,16 +8,12 @@ import java.util.Map;
 public class NavigationConfig {
 
     private Map<String, Integer> menuByRole;
-    private Map<String, Integer> navigationGraphs;
     private static NavigationConfig instance;
 
     private NavigationConfig() {
         menuByRole = new HashMap<>();
-        navigationGraphs = new HashMap<>();
         menuByRole.put("Administrador", R.menu.menu_admin);
         menuByRole.put("Operario", R.menu.menu_operator);
-        navigationGraphs.put("Administrador", R.navigation.admin_navigation);
-        navigationGraphs.put("Operario", R.navigation.operator_navigation);
     }
 
     public static NavigationConfig getInstance() {
@@ -30,5 +26,4 @@ public class NavigationConfig {
         return menuByRole.get(role);
     }
 
-    public Integer getNavGraph(String role) { return navigationGraphs.get(role); }
 }

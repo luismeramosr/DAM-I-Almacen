@@ -56,19 +56,14 @@ public class OperatorDetailFragment extends Fragment {
         editTexts.add(binding.userDetPhone);
         editTexts.add(binding.userDetEmail);
         editTexts.add(binding.userDetScheduleId);
+        disableEdition();
         binding.btnUpdateUser.setOnClickListener(this::updateUser);
         binding.btnCommitChanges.setOnClickListener(this::commitUpdate);
         binding.btnDeleteUser.setOnClickListener(this::deleteUser);
         viewModel.observeUser().observe(this, (response -> {
             user = response.getData();
-            binding.userDetFirstName.setText(user.getFirstName());
-            binding.userDetLastName.setText(user.getLastName());
-            binding.userDetDni.setText(String.valueOf(user.getDni()));
-            binding.userDetPhone.setText(String.valueOf(user.getPhone()));
-            binding.userDetEmail.setText(user.getEmail());
-            binding.userDetScheduleId.setText(String.valueOf(user.getIdSchedule()));
+            updateUiFromData(user);
         }));
-        disableEdition();
     }
 
     private void updateUser(View view) {
@@ -78,13 +73,10 @@ public class OperatorDetailFragment extends Fragment {
     private void commitUpdate(View view) {
         disableEdition();
         viewModel.updateUser(getUserFromUi())
-              .observe(this, (response) -> {
-                  helpers.setTimeout(() -> {
-                      helpers.runOnUiThread(activity, () -> {
-                          helpers.showToast(activity, "Operario actualizado", Toast.LENGTH_SHORT);
-                          activity.getNavigationController().navigate(R.id.nav_operators);
-                      });
-                  }, 200);
+              .observe(this, response -> {
+                  helpers.hideKeyboard(activity);
+                  helpers.showToast(activity, "Operario actualizado", Toast.LENGTH_SHORT);
+                  updateUiFromData(response.getData());
               });
     }
 
@@ -122,7 +114,17 @@ public class OperatorDetailFragment extends Fragment {
         editedUser.setPhone(binding.userDetPhone.getText().toString());
         editedUser.setEmail(binding.userDetEmail.getText().toString());
         editedUser.setIdSchedule(Integer.parseInt(binding.userDetScheduleId.getText().toString()));
+        editedUser.setPassword("");
         return editedUser;
+    }
+
+    private void updateUiFromData(User user) {
+        binding.userDetFirstName.setText(user.getFirstName());
+        binding.userDetLastName.setText(user.getLastName());
+        binding.userDetDni.setText(String.valueOf(user.getDni()));
+        binding.userDetPhone.setText(String.valueOf(user.getPhone()));
+        binding.userDetEmail.setText(user.getEmail());
+        binding.userDetScheduleId.setText(String.valueOf(user.getIdSchedule()));
     }
 
     @Override

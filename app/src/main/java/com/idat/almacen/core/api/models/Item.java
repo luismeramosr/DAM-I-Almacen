@@ -1,6 +1,7 @@
 package com.idat.almacen.core.api.models;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -21,17 +22,6 @@ public class Item {
     private int stock_min;
     private int providerId;
     private Provider provider;
-    private Set<Request> requests;
-
-    public boolean isEmpty() {
-        boolean result = false;
-        try {
-            for (Field f : getClass().getDeclaredFields())
-                if (f.get(this) != null) result = true;
-        } catch (IllegalAccessException err) {
-            err.printStackTrace();
-        }
-        return result;
-    }
+    private List<Request> requests;
 
 }

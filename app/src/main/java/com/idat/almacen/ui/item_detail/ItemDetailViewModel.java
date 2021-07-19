@@ -1,7 +1,5 @@
 package com.idat.almacen.ui.item_detail;
 
-import android.annotation.SuppressLint;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MediatorLiveData;
@@ -12,21 +10,16 @@ import com.google.gson.JsonObject;
 import com.idat.almacen.core.api.dto.responses.ResWrapper;
 import com.idat.almacen.core.api.models.Item;
 import com.idat.almacen.core.api.services.ItemService;
+import com.idat.almacen.core.api.ws.NewDataPublishedListener;
 import com.idat.almacen.core.api.ws.WSMessage;
 import com.idat.almacen.core.api.ws.WebSocketClient;
+import com.idat.almacen.core.util.Console;
 import com.idat.almacen.core.util.SharedData;
 
-import org.jetbrains.annotations.NotNull;
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
-
-import java.util.Optional;
-
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemDetailViewModel extends ViewModel {
 
@@ -47,27 +40,49 @@ public class ItemDetailViewModel extends ViewModel {
                 System.currentTimeMillis(),
                 null
         ));
-        subscribeToRTItem();
     }
 
     public LiveData<ResWrapper<Item>> observeItem() {
         return item;
     }
 
-    public MutableLiveData<Item> observeRTItem() { return rtItem; }
-
-    @SuppressLint("NewApi")
-    public LiveData<Item> subscribeToRTItem() {
+    public void subscribeToRTItem(NewDataPublishedListener listener) {
         ws.sendMessage(new WSMessage("Item",
-            ws.gson.fromJson(ws.gson.toJson(selectedItem), JsonObject.class)));
+                ws.gson.fromJson(ws.gson.toJson(selectedItem), JsonObject.class)));
 
-        ws.handler.getMessageHandler().onItemUpdated()
-            .subscribe(newData -> {
-                rtItem.setValue(newData);
-            }, err -> {
-                err.printStackTrace();
-            });
+        ws.handler.getMessageHandler().subscribe(listener);
+    }
 
-        return observeRTItem();
+    public void unsubscribeToRTItem() {
+        ws.sendMessage(new WSMessage("unsubscribe-Item",
+                ws.gson.fromJson(ws.gson.toJson(selectedItem), JsonObject.class)));
+        ws.handler.getMessageHandler().unsubscribe();
+    }
+
+    public LiveData<ResWrapper<Item>> updateItem(Item _item) {
+        final LiveData<ResWrapper<Item>> source = LiveDataReactiveStreams.fromPublisher(
+            service.updateItem(_item)
+        );
+
+        item.addSource(source, response -> {
+            item.setValue(response);
+            item.removeSource(source);
+        });
+
+        return observeItem();
+    }
+
+    public void deleteItem(String barcode) {
+        service.deleteItem(barcode).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 }

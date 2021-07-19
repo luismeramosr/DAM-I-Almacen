@@ -13,7 +13,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.navigation.NavigationView;
 import com.idat.almacen.R;
 import com.idat.almacen.core.api.ws.WebSocketClient;
 import com.idat.almacen.core.constants.NavigationConfig;
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpMenu() {
         service.getCachedData()
                 .subscribe(data -> {
-                    int idMenu = NavigationConfig.getInstance().getMenu(data.getRole());
+                    int idMenu = NavigationConfig.getInstance().getMenu(data.role);
                     binding.navView.inflateMenu(idMenu);
                     loadUserData(data);
                 }, err -> {
@@ -81,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
         TextView email = headerView.findViewById(R.id.userEmail);
         TextView role = headerView.findViewById(R.id.userRole);
         String user = String.format("%s %s",
-                        cachedData.getFirstName(),
-                        cachedData.getLastName());
+                        cachedData.firstName,
+                        cachedData.lastName);
         username.setText(user);
-        email.setText(cachedData.getEmail());
-        role.setText(cachedData.getRole());
+        email.setText(cachedData.email);
+        role.setText(cachedData.role);
         Helpers.getInstance().showToast(this,
                 String.format("Bienvenido %s", user), Toast.LENGTH_SHORT);
     }

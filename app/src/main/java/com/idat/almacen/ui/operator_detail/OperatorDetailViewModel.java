@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.idat.almacen.core.api.dto.responses.ResWrapper;
 import com.idat.almacen.core.api.models.User;
 import com.idat.almacen.core.api.services.UserService;
+import com.idat.almacen.core.util.Console;
 import com.idat.almacen.core.util.Helpers;
 import com.idat.almacen.core.util.SharedData;
 
@@ -37,7 +38,6 @@ public class OperatorDetailViewModel extends ViewModel {
         final LiveData<ResWrapper<User>> source = LiveDataReactiveStreams.fromPublisher(
             service.updateUser(user)
         );
-
         userData.addSource(source, response -> {
             userData.setValue(response);
             userData.removeSource(source);

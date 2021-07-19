@@ -26,6 +26,7 @@ public class WSMessageHandler {
     private Map<String, Runnable> processors;
     private WebSocket ws;
     private WSMessage msg;
+    private NewDataPublishedListener listener;
 
     public WSMessageHandler() {
         gson = new Gson();
@@ -37,22 +38,34 @@ public class WSMessageHandler {
 
     public void handleMessage(String message, WebSocket webSocket) {
         ws = webSocket;
-        Console.log(message);
         JsonObject jo = gson.fromJson(message, JsonObject.class);
         msg.setId(jo.get("id").getAsString());
         msg.setBody(jo.get("body").getAsJsonObject());
         processors.get(jo.get("id").getAsString()).run();
     }
 
-    private final PublishSubject<Item> subject = PublishSubject.create();
-    public Observable<Item> onItemUpdated() {
-        Console.log("Llego mensaje");
-        subject.onNext(gson.fromJson(msg.getBody(), Item.class));
-        return subject.subscribeOn(Schedulers.io());
+    public void onItemUpdated() {
+        Item item = gson.fromJson(msg.getBody(), Item.class);
+        if (item != null) {
+            listener.onNewData(msg.getBody());
+        }
     }
 
     private void onPing() {
         String payload = gson.toJson(new WSMessage("Pong", new JsonObject()), WSMessage.class);
         ws.send(payload);
+    }
+
+    public void subscribe(NewDataPublishedListener _listener) {
+        listener = _listener;
+    }
+
+    public void unsubscribe() {
+        listener = new NewDataPublishedListener() {
+            @Override
+            public void onNewData(JsonObject newData) {
+                Console.log("Not listening...");
+            }
+        };
     }
 }

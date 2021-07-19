@@ -4,32 +4,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.idat.almacen.core.util.Console;
-import com.idat.almacen.databinding.FragmentHomeAdminBinding;
-import com.idat.almacen.databinding.FragmentHomeOperatorBinding;
+import com.idat.almacen.databinding.FragmentHomeBinding;
 
-import lombok.Setter;
+public class HomeFragment extends Fragment {
 
-public class HomeAdminFragment extends Fragment {
-
-    private HomeAdminViewModel viewModel;
-    private FragmentHomeAdminBinding binding;
+    private HomeViewModel viewModel;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel =
-                new ViewModelProvider(this).get(HomeAdminViewModel.class);
+                new ViewModelProvider(this).get(HomeViewModel.class);
         viewModel.init(getContext());
-        binding = FragmentHomeAdminBinding.inflate(getLayoutInflater());
+        binding = FragmentHomeBinding.inflate(getLayoutInflater());
         viewModel.getUserCache().observe((LifecycleOwner) getActivity(), data -> {
-            binding.tv.setText(data.getRole());
+            binding.tv.setText(data.role);
         });
         return binding.getRoot();
     }

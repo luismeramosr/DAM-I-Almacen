@@ -10,6 +10,7 @@ import com.idat.almacen.core.util.Console;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import lombok.Getter;
 import okhttp3.OkHttpClient;
@@ -36,8 +37,13 @@ public class WebSocketClient {
     }
 
     public void initConnection() {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(BuildConfig.WSSERVER_URL).build();
+        OkHttpClient client = new OkHttpClient()
+            .newBuilder()
+            .pingInterval(4, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .build();
+        Request request = new Request.Builder()
+                .url(BuildConfig.WSSERVER_URL).build();
         handler = new WSHandler(ws);
         ws = client.newWebSocket(request, handler);
     }

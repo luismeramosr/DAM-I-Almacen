@@ -19,116 +19,71 @@ import lombok.ToString;
 public class UserCache {
     @NonNull
     @PrimaryKey
-    private int id = 1;
+    public int id = 1;
 
     @ColumnInfo(name = "firstName")
-    private String firstName;
+    public String firstName;
 
     @ColumnInfo(name = "lastName")
-    private String lastName;
+    public String lastName;
 
-    @ColumnInfo(name = "username")
-    private String username;
+    @ColumnInfo(name = "dni")
+    public String dni;
+
+    @ColumnInfo(name = "phone")
+    public String phone;
 
     @ColumnInfo(name = "email")
-    private String email;
+    public String email;
+
+    @ColumnInfo(name = "username")
+    public String username;
 
     @ColumnInfo(name = "password")
-    private String password;
+    public String password;
+
+    @ColumnInfo(name = "active")
+    private boolean active;
+
+    @ColumnInfo(name = "idRole")
+    public int idRole;
+
+    @ColumnInfo(name = "idSchedule")
+    public int idSchedule;
 
     @ColumnInfo(name = "role")
-    private String role;
+    public String role;
 
     @ColumnInfo(name = "jwt")
-    private String jwt;
+    public String jwt;
 
     @ColumnInfo(name = "timestamp")
-    private Long timestamp;
+    public Long timestamp;
 
     public static UserCache ofLoginResponse(ResWrapper<LoginResponse> responseWrapper) {
         return new UserCache(
                 responseWrapper.getData().getUser().getId(),
                 responseWrapper.getData().getUser().getFirstName(),
                 responseWrapper.getData().getUser().getLastName(),
-                responseWrapper.getData().getUser().getUsername(),
+                responseWrapper.getData().getUser().getDni(),
+                responseWrapper.getData().getUser().getPhone(),
                 responseWrapper.getData().getUser().getEmail(),
+                responseWrapper.getData().getUser().getUsername(),
                 responseWrapper.getData().getUser().getPassword(),
+                responseWrapper.getData().getUser().isActive(),
+                responseWrapper.getData().getUser().getIdRole(),
+                responseWrapper.getData().getUser().getIdSchedule(),
                 responseWrapper.getData().getUser().getRole().getName(),
                 responseWrapper.getData().getJwt(),
                 responseWrapper.getTimestamp()
         );
     }
 
-    @NonNull
-    public int getId() {
-        return id;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setId(@NonNull int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getJwt() {
-        return jwt;
-    }
-
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
