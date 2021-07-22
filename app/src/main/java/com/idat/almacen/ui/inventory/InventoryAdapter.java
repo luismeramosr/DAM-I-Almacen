@@ -57,6 +57,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
 
         holder.binding.itemName.setText(item.getName());
         holder.binding.itemBrand.setText(item.getBrand());
+        holder.binding.itemBarcode.setText(item.getBarcode());
     }
 
     @Override
@@ -81,7 +82,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
                 for (Item item : allItems) {
                     if (
                         item.getName().toLowerCase().contains(filterPattern) ||
-                        item.getBrand().toLowerCase().contains(filterPattern)
+                        item.getBrand().toLowerCase().contains(filterPattern) ||
+                        item.getBarcode().contains(filterPattern)
                     )
                         filteredList.add(item);
                 }

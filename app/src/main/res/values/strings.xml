@@ -47,7 +47,7 @@
     <string name="menu_inventory">Inventario</string>
     <string name="inventoryLabel">Inventario</string>
     <string name="queryOperatorHint">Nombres o apellidos...</string>
-    <string name="queryItemHint">Nombre o marca...</string>
+    <string name="queryItemHint">Nombre, marca o código...</string>
     <string name="lblBrand">Marca:</string>
     <string name="lblItemDescription">Descripción:</string>
     <string name="lblItemPrice">Precio:</string>
@@ -70,4 +70,6 @@
     <string name="lblUserProfilePassword">Contraseña nueva: </string>
     <string name="userProfilePasswordHint">*********</string>
     <string name="btnUpdatePassword">Actualizar contraseña</string>
+    <string name="btnAddRequest">Agregar Solicitud</string>
+    <string name="lblNavNewItem">Nuevo ítem</string>
 </resources>

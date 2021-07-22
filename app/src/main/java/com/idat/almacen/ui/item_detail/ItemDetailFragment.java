@@ -131,7 +131,7 @@ public class ItemDetailFragment extends Fragment implements NewDataPublishedList
         item.setName(binding.itemDetName.getText().toString());
         item.setBarcode(binding.itemDetBarcode.getText().toString());
         item.setBrand(binding.itemDetBrand.getText().toString());
-        //item.getProvider(binding.itemDetProvider.getText().toString());
+        item.setProviderId(Integer.parseInt(binding.itemDetProvider.getText().toString()));
         item.setDescription(binding.itemDetDescription.getText().toString());
         item.setPrice(Float.parseFloat(binding.itemDetPrice.getText().toString()));
         item.setStock(Integer.parseInt(binding.itemDetStock.getText().toString()));

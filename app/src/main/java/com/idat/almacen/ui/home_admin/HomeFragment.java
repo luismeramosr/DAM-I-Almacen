@@ -24,7 +24,9 @@ public class HomeFragment extends Fragment {
         viewModel.init(getContext());
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
         viewModel.getUserCache().observe((LifecycleOwner) getActivity(), data -> {
-            binding.tv.setText(data.role);
+            if (data.role.equals("Operario")) {
+                binding.btnAddRequest.setVisibility(View.GONE);
+            }
         });
         return binding.getRoot();
     }
